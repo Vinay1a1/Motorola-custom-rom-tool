@@ -7,6 +7,7 @@ set "FASTBOOT=%~dp0..\adb\fastboot.exe"
 
 echo.
 echo Scirpt to automate repitive stuff
+echo Made by V
 echo.
 
 :startMenu
@@ -21,8 +22,7 @@ echo.
     echo. [6] Patch boot image using Magisk
     echo. [7] Flash vendor boot using fastbootd
     echo. [8] Flash boot image using fastbootd
-    echo. [9] Flash stock rom
-    echo. [10] Exit
+    echo. [9] Flash stock rom            [10] Exit
     echo.
     echo -------------------------------------------------------------------------------
     echo.
