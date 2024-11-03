@@ -1,10 +1,17 @@
 @echo off
 setlocal enabledelayedexpansion
 
-REM Check if vendor_boot.img is available in the main folder
-if not exist "%~dp0..\vendor_boot.img" (
-    echo "vendor_boot.img not found in the main folder. Please ensure it is present."
-    exit /b 1
+set count=0
+for %%f in (*.img) do (
+    set /a count+=1
+    echo !count!: %%f
+    set image[!count!]=%%f
+)
+
+if %count%==0 (
+    echo No image files found in the current directory.
+    pause
+    exit /b
 )
 
 echo Rebooting into fastbootd mode...
@@ -12,8 +19,16 @@ echo Rebooting into fastbootd mode...
 
  "%FASTBOOT%" wait-for-device
 
+:select_vendor_boot
+set /p vendor_boot_choice="Enter the number of the vendor_boot image to flash: "
+if not defined image[%vendor_boot_choice%] (
+    echo Invalid choice. Please try again.
+    goto select_vendor_boot
+)
+set vendor_boot_image=!image[%vendor_boot_choice%]!
+
 echo Flashing vendor_boot.img...
- "%FASTBOOT%" flash vendor_boot vendor_boot.img
+ "%FASTBOOT%" flash vendor_boot %vendor_boot_image%
 
 set /p REBOOT="Flashing complete. Do you want to reboot the device to system now? (Y/N): "
 if /i "%REBOOT%"=="Y" (
