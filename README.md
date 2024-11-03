@@ -23,5 +23,3 @@ This script can-
 The magisk patching option is currently broken and will be added later.
 
 # Note1: To flash rom using fastboot, place rom zip in the same folder.
-
-# Note2: The images should be named boot and vendor_boot because I am lazy and hardcoded it.
