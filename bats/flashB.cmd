@@ -1,10 +1,17 @@
 @echo off
 setlocal enabledelayedexpansion
 
-REM Check if boot.img is available in the main folder
-if not exist "%~dp0..\boot.img" (
-    echo "boot.img not found in the main folder. Please ensure it is present."
-    exit /b 1
+set count=0
+for %%f in (*.img) do (
+    set /a count+=1
+    echo !count!: %%f
+    set image[!count!]=%%f
+)
+
+if %count%==0 (
+    echo No image files found in the current directory.
+    pause
+    exit /b
 )
 
 echo Rebooting into fastbootd mode...
@@ -12,8 +19,16 @@ fastboot reboot fastboot
 
 fastboot wait-for-device
 
-echo Flashing boot.img...
-fastboot flash boot boot.img
+:select_boot
+set /p boot_choice="Select the boot image to flash: "
+if not defined image[%boot_choice%] (
+    echo Invalid choice. Please try again.
+    goto select_boot
+)
+set boot_image=!image[%boot_choice%]!
+
+echo Flashing selected boot image...
+fastboot flash boot %boot_image%
 
 set /p REBOOT="Flashing complete. Do you want to reboot the device to system now? (Y/N): "
 if /i "%REBOOT%"=="Y" (
