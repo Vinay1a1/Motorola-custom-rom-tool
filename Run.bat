@@ -103,6 +103,7 @@ exit /b 0
 
 
 :patchKSU
+    echo If you want to flash the boot image then boot in fastbootd mode.
     echo Press any key to continue
     pause > nul
 
