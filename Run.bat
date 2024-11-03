@@ -6,26 +6,26 @@ set payload-dumper-go="%~dp0..\bin\payload-dumper-go.exe"
 set "FASTBOOT=%~dp0..\adb\fastboot.exe" 
 
 echo.
-echo Scirpt to automate repitive stuff
-echo Made by V
+echo               Scirpt to automate repitive stuff
+echo          The flash option flashes the images in fastbootd
+echo    (it reboots automatically if the phone is in fastboot mode)
+echo                          Made by V
 echo.
 
 :startMenu
 
-    echo. -------------------------------------------------------------------------------
-    echo.
-    echo. [1] Flash custom rom using adb sideload
-    echo. [2] Flash custom rom using fastboot
-    echo. [3] Extract vendor boot
-    echo. [4] Extract boot image
-    echo. [5] Patch boot image using KSU
-    echo. [6] Patch boot image using Magisk
-    echo. [7] Flash vendor boot using fastbootd
-    echo. [8] Flash boot image using fastbootd
-    echo. [9] Flash stock rom            [10] Exit
-    echo.
-    echo -------------------------------------------------------------------------------
-    echo.
+    echo. ========================================================
+    echo.                 FLASH CUSTOM ROM BY                     
+    echo. [1] Adb sideload               [2] Fastboot             
+    echo. ----------------------------------------------          
+    echo. [3] Extract Vendor boot        [4] Extract Boot         
+    echo. ----------------------------------------------          
+    echo. [5] Patch Boot(KSU)            [6] Patch Boot(Magisk)   
+    echo. ----------------------------------------------          
+    echo. [7] Flash Vendor boot          [8] Flash Boot           
+    echo. ----------------------------------------------          
+    echo. [9] Flash stock rom            [10] Exit                
+    echo. ========================================================
     echo.
 
     set selection=

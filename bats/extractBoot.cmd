@@ -17,7 +17,7 @@ if "%OTA_ZIP%"=="" (
 echo Found OTA ZIP file: %OTA_ZIP%
 
 REM Create a temporary directory for extraction
-    set "TEMP_DIR=%~dp0extracted"
+    set "TEMP_DIR=%~dp0../extracted"
     mkdir "%TEMP_DIR%"
 
 
@@ -27,7 +27,7 @@ REM Extract OTA ZIP using payload-dumper-go
 
 REM Move boot.img to main folder
 if exist "%TEMP_DIR%\boot.img" (
-    move "%TEMP_DIR%\boot.img" "%~dp0"
+    move "%TEMP_DIR%\boot.img" "%~dp0.."
     echo Moved boot.img to the main folder.
 ) else (
     echo boot.img not found in the extracted files.

@@ -1,8 +1,10 @@
 @echo off
 setlocal enabledelayedexpansion
 
+set "FASTBOOT=%~dp0..\adb\fastboot.exe"  
+
 set count=0
-for %%f in (*.img) do (
+for %%f in ("%~dp0..\*.img") do (
     set /a count+=1
     echo !count!: %%f
     set image[!count!]=%%f
@@ -16,8 +18,6 @@ if %count%==0 (
 
 echo Rebooting into fastbootd mode...
  "%FASTBOOT%" reboot fastboot
-
- "%FASTBOOT%" wait-for-device
 
 :select_vendor_boot
 set /p vendor_boot_choice="Enter the number of the vendor_boot image to flash: "
