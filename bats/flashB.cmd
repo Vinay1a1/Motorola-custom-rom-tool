@@ -15,9 +15,9 @@ if %count%==0 (
 )
 
 echo Rebooting into fastbootd mode...
-fastboot reboot fastboot
+"%FASTBOOT%" reboot fastboot
 
-fastboot wait-for-device
+"%FASTBOOT%" wait-for-device
 
 :select_boot
 set /p boot_choice="Select the boot image to flash: "
@@ -28,11 +28,11 @@ if not defined image[%boot_choice%] (
 set boot_image=!image[%boot_choice%]!
 
 echo Flashing selected boot image...
-fastboot flash boot %boot_image%
+"%FASTBOOT%" flash boot %boot_image%
 
 set /p REBOOT="Flashing complete. Do you want to reboot the device to system now? (Y/N): "
 if /i "%REBOOT%"=="Y" (
-    fastboot reboot
+    "%FASTBOOT%" reboot
     echo Device is rebooting.
 ) else (
     echo Please reboot the device manually when ready.
@@ -41,8 +41,8 @@ if /i "%REBOOT%"=="Y" (
 
 set /p RECOVERY="Do you want to reboot to recovery? (Y/N): "
 if /i "%RECOVERY%"=="Y" (
-    fastboot reboot bootloader
-    fastboot reboot recovery
+    "%FASTBOOT%" reboot bootloader
+    "%FASTBOOT%" reboot recovery
     echo Rebooting to recovery.
 ) else (
     echo You can reboot to recovery manually later.
