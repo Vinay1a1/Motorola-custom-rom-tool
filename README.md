@@ -1,4 +1,5 @@
 ## flashing-AIO
+It's made for Moto G54. So, use it for other devices at your own risk.
 
 This script can-
 
