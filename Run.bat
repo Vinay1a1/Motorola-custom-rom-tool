@@ -1,9 +1,9 @@
 @echo off
 @SETLOCAL enabledelayedexpansion
 
-set adb="%~dp0adb\adb.exe"
-set payload-dumper-go="%~dp0..\bin\payload-dumper-go.exe"
-set "FASTBOOT=%~dp0..\adb\fastboot.exe" 
+set "FASTBOOT=%~dp0..\adb\fastboot.exe"
+set "ADB=%~dp0..\adb\adb.exe"
+set "Payload-dumper-go=%~dp0..\bin\payload-dumper-go.exe"
 
 echo.
 echo               Scirpt to automate repitive stuff
