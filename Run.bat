@@ -116,6 +116,7 @@ exit /b 0
 
 
 :patchMagisk
+    echo Currently this option flashes magisk zip using adb sideload
     echo Press any key to continue
     pause > nul
 
