@@ -2,7 +2,9 @@
 setlocal enabledelayedexpansion
 
 set "FASTBOOT=%~dp0..\adb\fastboot.exe"  
+set "ADB=%~dp0..\adb\adb.exe"
 
+REM Find images and set the count
 set count=0
 for %%f in ("%~dp0..\*.img") do (
     set /a count+=1
@@ -16,6 +18,15 @@ if %count%==0 (
     exit /b
 )
 
+adb get -state 1>nul 2>nul
+if %errorlevel% equ 0 (
+    echo Rebooting to Fastboot...
+    "%ADB%" reboot fastboot 
+) else (
+GOTO do
+)
+
+:do
 echo Rebooting into fastbootd mode...
  "%FASTBOOT%" reboot fastboot
 
