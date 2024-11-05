@@ -47,9 +47,16 @@ REM Flashing images using  fastboot
    "%FASTBOOT%" flash super super.img_sparsechunk.16
    "%FASTBOOT%" flash super super.img_sparsechunk.17
    "%FASTBOOT%" flash super super.img_sparsechunk. 18
-   "%FASTBOOT%" erase userdata
-   "%FASTBOOT%" erase metadata
    "%FASTBOOT%" erase debug_token
+
+set /p FORMAT_DATA="Do you want to format data? (Y/N): "
+if /i "%FORMAT_DATA%"=="Y" (
+    echo Formatting data...
+    "%FASTBOOT%" erase userdata
+    "%FASTBOOT%" erase metadata
+) else (
+    echo Skipping data format. Proceeding with flashing...
+)
 
 echo Flashing complete. 
 echo You can reboot now.
