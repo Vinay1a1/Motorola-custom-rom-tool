@@ -51,9 +51,13 @@ REM Flashing images using  fastboot
 
      "%FASTBOOT%" flash vendor_dlkm vendor_dlkm.img
 
-    echo formatting data
-
-     "%FASTBOOT%" -w
+set /p FORMAT_DATA="Do you want to format data? (Y/N): "
+if /i "%FORMAT_DATA%"=="Y" (
+    echo Formatting data...
+    "%FASTBOOT%" -w
+) else (
+    echo Skipping data format. Proceeding with flashing...
+)
 
 
 echo Flashing complete.
