@@ -23,6 +23,12 @@ if %errorlevel% neq 0 (
     goto wait_for_sideload
 )
 
+echo Downloading magisk
+cd "%~dp0..\bin\"
+wget https://github.com/topjohnwu/Magisk/releases/download/v28.0/Magisk-v28.0.apk
+REN Magisk-v28.0.apk Magisk-v28.0.zip
+cd "%~dp0.."
+
 echo Starting sideloading....
 "%ADB%" sideload  "%~dp0..\bin\Magisk.zip"
 
