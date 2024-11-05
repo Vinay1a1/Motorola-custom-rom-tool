@@ -16,6 +16,15 @@ if %count%==0 (
     exit /b
 )
 
+adb get -state 1>nul 2>nul
+if %errorlevel% equ 0 (
+    echo Rebooting to Fastboot...
+    "%ADB%" reboot fastboot 
+) else (
+GOTO do
+)
+
+:do
 echo Rebooting into fastbootd mode...
 "%FASTBOOT%" reboot fastboot
 
