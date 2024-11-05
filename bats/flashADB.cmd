@@ -26,13 +26,13 @@ if /i "%FORMAT_DATA%"=="Y" (
 
 
 echo Rebooting device into recovery mode...
-fastboot reboot recovery
+"%FASTBOOT%" reboot recovery
 
 echo Waiting for device to enter ADB sideload mode...
 
 :wait_for_sideload
 REM Check if sideload is available (output includes 'sideload')
-adb devices | findstr "sideload" >nul
+"%ADB%" devices | findstr "sideload" >nul
 if %errorlevel% neq 0 (
     timeout /t 5 >nul
     goto wait_for_sideload
