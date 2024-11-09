@@ -49,76 +49,13 @@ echo [10] Exit
 echo =================================================
 echo.
 
-rem Get user input
-set /p selection=Please select an option (1-10): 
-
-rem Branch based on the user's choice
-if "%selection%"=="1" (
-    echo You selected Adb sideload.
-    rem Add your command or script call here
-    pause
-    goto startMenu
-)
-if "%selection%"=="2" (
-    echo You selected Fastboot.
-    rem Add your command or script call here
-    pause
-    goto startMenu
-)
-if "%selection%"=="3" (
-    echo You selected Vendor Boot extraction.
-    rem Add your command or script call here
-    pause
-    goto startMenu
-)
-if "%selection%"=="4" (
-    echo You selected Boot extraction.
-    rem Add your command or script call here
-    pause
-    goto startMenu
-)
-if "%selection%"=="5" (
-    echo You selected KSU patching.
-    rem Add your command or script call here
-    pause
-    goto startMenu
-)
-if "%selection%"=="6" (
-    echo You selected Magisk patching.
-    rem Add your command or script call here
-    pause
-    goto startMenu
-)
-if "%selection%"=="7" (
-    echo You selected Vendor Boot flash.
-    rem Add your command or script call here
-    pause
-    goto startMenu
-)
-if "%selection%"=="8" (
-    echo You selected Boot flash.
-    rem Add your command or script call here
-    pause
-    goto startMenu
-)
-if "%selection%"=="9" (
-    echo You selected Stock ROM flash.
-    rem Add your command or script call here
-    pause
-    goto startMenu
-)
-if "%selection%"=="10" (
-    echo Exiting the script...
-    exit
-)
-
 :startMenu
 cls
 rem Display the menu again
 
 
     set selection=
-    set /p selection= Please enter the option number: ^>^>
+    set /p selection= Please enter the option number(1-10): ^>^>
 
         if /i "%selection%"=="1" cls && call :flashADB
         if /i "%selection%"=="2" cls && call :flashFastboot
