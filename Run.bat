@@ -49,13 +49,8 @@ echo [10] Exit
 echo =================================================
 echo.
 
-:startMenu
-cls
-rem Display the menu again
-
-
     set selection=
-    set /p selection= Please enter the option number(1-10): ^>^>
+    set /p selection= Please enter the option number(1-10):
 
         if /i "%selection%"=="1" cls && call :flashADB
         if /i "%selection%"=="2" cls && call :flashFastboot
