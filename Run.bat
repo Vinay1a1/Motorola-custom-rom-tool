@@ -7,26 +7,115 @@ set "Payload-dumper-go=%~dp0..\bin\payload-dumper-go.exe"
 
 echo.
 echo               Scirpt to automate repitive stuff
-echo          The flash option flashes the images in fastbootd
+echo          The flash option flashes the boot and vb images in fastbootd
 echo    (it reboots automatically if the phone is in fastboot mode)
 echo                          Made by V
 echo.
 
 :startMenu
 
-    echo. ========================================================
-    echo.                 FLASH CUSTOM ROM BY                     
-    echo. [1] Adb sideload               [2] Fastboot             
-    echo. ----------------------------------------------          
-    echo. [3] Extract Vendor boot        [4] Extract Boot         
-    echo. ----------------------------------------------          
-    echo. [5] Patch Boot(KSU)            [6] Patch Boot(Magisk)   
-    echo. ----------------------------------------------          
-    echo. [7] Flash Vendor boot          [8] Flash Boot           
-    echo. ----------------------------------------------          
-    echo. [9] Flash stock rom            [10] Exit                
-    echo. ========================================================
-    echo.
+@echo off
+cls
+rem Flashing AIO Menu Script
+
+echo =================================================
+echo            Flashing AIO By V
+echo =================================================
+
+rem Flash Custom ROM Section
+echo == Flash Custom ROM ==
+echo [1] Adb sideload    [2] Fastboot
+
+rem Flash Images Section
+echo -----------------------------------------------
+echo == Flash Images ==
+echo [7] Vendor Boot    [8] Boot    [9] Stock ROM
+
+rem Extract Section
+echo -----------------------------------------------
+echo == Extract ==
+echo [3] Vendor Boot    [4] Boot
+
+rem Patch Section
+echo -----------------------------------------------
+echo == Patch Boot ==
+echo [5] KSU            [6] Magisk
+
+rem Miscellaneous Section
+echo -----------------------------------------------
+echo == Miscellaneous ==
+echo [10] Exit
+
+echo =================================================
+echo.
+
+rem Get user input
+set /p selection=Please select an option (1-10): 
+
+rem Branch based on the user's choice
+if "%selection%"=="1" (
+    echo You selected Adb sideload.
+    rem Add your command or script call here
+    pause
+    goto startMenu
+)
+if "%selection%"=="2" (
+    echo You selected Fastboot.
+    rem Add your command or script call here
+    pause
+    goto startMenu
+)
+if "%selection%"=="3" (
+    echo You selected Vendor Boot extraction.
+    rem Add your command or script call here
+    pause
+    goto startMenu
+)
+if "%selection%"=="4" (
+    echo You selected Boot extraction.
+    rem Add your command or script call here
+    pause
+    goto startMenu
+)
+if "%selection%"=="5" (
+    echo You selected KSU patching.
+    rem Add your command or script call here
+    pause
+    goto startMenu
+)
+if "%selection%"=="6" (
+    echo You selected Magisk patching.
+    rem Add your command or script call here
+    pause
+    goto startMenu
+)
+if "%selection%"=="7" (
+    echo You selected Vendor Boot flash.
+    rem Add your command or script call here
+    pause
+    goto startMenu
+)
+if "%selection%"=="8" (
+    echo You selected Boot flash.
+    rem Add your command or script call here
+    pause
+    goto startMenu
+)
+if "%selection%"=="9" (
+    echo You selected Stock ROM flash.
+    rem Add your command or script call here
+    pause
+    goto startMenu
+)
+if "%selection%"=="10" (
+    echo Exiting the script...
+    exit
+)
+
+:startMenu
+cls
+rem Display the menu again
+
 
     set selection=
     set /p selection= Please enter the option number: ^>^>
