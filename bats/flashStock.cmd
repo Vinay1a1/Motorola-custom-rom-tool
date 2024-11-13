@@ -39,14 +39,14 @@ REM Flashing images using  fastboot
    "%FASTBOOT%" flash super super.img_sparsechunk.8
    "%FASTBOOT%" flash super super.img_sparsechunk.9
    "%FASTBOOT%" flash super super.img_sparsechunk.10
-   "%FASTBOOT%" flash super super.img_sparsechunk. 11
-   "%FASTBOOT%" flash super super.img_sparsechunk. 12
-   "%FASTBOOT%" flash super super.img_sparsechunk. 13
-   "%FASTBOOT%" flash super super.img_sparsechunk. 14
-   "%FASTBOOT%" flash super super.img_sparsechunk. 15
+   "%FASTBOOT%" flash super super.img_sparsechunk.11
+   "%FASTBOOT%" flash super super.img_sparsechunk.12
+   "%FASTBOOT%" flash super super.img_sparsechunk.13
+   "%FASTBOOT%" flash super super.img_sparsechunk.14
+   "%FASTBOOT%" flash super super.img_sparsechunk.15
    "%FASTBOOT%" flash super super.img_sparsechunk.16
    "%FASTBOOT%" flash super super.img_sparsechunk.17
-   "%FASTBOOT%" flash super super.img_sparsechunk. 18
+   "%FASTBOOT%" flash super super.img_sparsechunk.18
    "%FASTBOOT%" erase debug_token
 
 set /p FORMAT_DATA="Do you want to format data? (Y/N): "
