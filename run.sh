@@ -3,53 +3,37 @@
 # Set the path for the scripts
 SCRIPTS_DIR="$(dirname "$0")/scripts"
 
-# Function to print text with color
-print_with_color() {
-    local text=$1
-    local color=$2
-    case $color in
-        "cyan") echo -e "\033[36m$text\033[0m" ;;
-        "yellow") echo -e "\033[33m$text\033[0m" ;;
-        "green") echo -e "\033[32m$text\033[0m" ;;
-        "blue") echo -e "\033[34m$text\033[0m" ;;
-        "red") echo -e "\033[31m$text\033[0m" ;;
-        "magenta") echo -e "\033[35m$text\033[0m" ;;
-        "darkgray") echo -e "\033[90m$text\033[0m" ;;
-        *) echo "$text" ;;
-    esac
-}
-
-# Main menu
+#Main menu
 show_menu() {
-    clear
-    print_with_color "=================================================" "cyan"
-    print_with_color "            Flashing AIO By V" "white"
-    print_with_color "=================================================" "cyan"
+    
+    echo =================================================
+    echo            Flashing AIO By V
+    echo =================================================
     
     # Flash Custom ROM Section
-    print_with_color "== Flash Custom ROM ==" "yellow"
-    print_with_color "[1] Adb sideload    [2] Fastboot" "red"
-    print_with_color "-----------------------------------------------" "darkgray"
-
-    # Flash Images Section
-    print_with_color "== Flash Images ==" "yellow"
-    print_with_color "[7] Vendor Boot    [8] Boot    [9] Stock ROM" "cyan"
-    print_with_color "-----------------------------------------------" "darkgray"
+    echo == Flash Custom ROM ==
+    echo [1] Adb sideload    [2] Fastboot
+    echo -----------------------------------------------
 
     # Extract Section
-    print_with_color "== Extract ==" "yellow"
-    print_with_color "[3] Vendor Boot    [4] Boot" "green"
-    print_with_color "-----------------------------------------------" "darkgray"
+    echo == Extract ==
+    echo [3] Vendor Boot    [4] Boot
+    echo -----------------------------------------------
 
     # Patch Section
-    print_with_color "== Patch Boot ==" "yellow"
-    print_with_color "[5] KSU            [6] Magisk" "blue"
-    print_with_color "-----------------------------------------------" "darkgray"
+    echo == Patch Boot ==
+    echo [5] KSU            [6] Magisk
+    echo ----------------------------------------------
+
+    # Flash Images Section
+    echo == Flash Images ==
+    echo [7] Vendor Boot    [8] Boot    [9] Stock ROM
+    echo -----------------------------------------------
 
     # Miscellaneous Section
-    print_with_color "== Miscellaneous ==" "yellow"
-    print_with_color "[10] Exit" "magenta"
-    print_with_color "=================================================" "cyan"
+    echo == Miscellaneous ==
+    echo [10] Exit
+    =================================================
     
     echo
     read -p "Please select an option (1-10): " selection
