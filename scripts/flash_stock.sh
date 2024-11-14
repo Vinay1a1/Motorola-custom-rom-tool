@@ -1,6 +1,8 @@
 #!/bin/bash
 
-cd "$(dirname "$0")/.."
+cd "dirname $0/.."
+
+echo $(pwd)
 
 # Flashing images using fastboot
 echo "Flashing images using fastboot..."

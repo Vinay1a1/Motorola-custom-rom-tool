@@ -4,17 +4,7 @@
 ksud="./bin/ksud"
 magiskboot="./bin/magiskboot"
 
-# Define the folder where the boot image is located
-BOOT_IMG_DIR="../"
-
-# Look for any boot image in the specified directory
-BOOT_IMG="${BOOT_IMG_DIR}boot.img"
-
-if [[ ! -f "$BOOT_IMG" ]]; then
-    echo "No boot image found in the specified directory."
-    exit 1
-fi
-
+cd "(dirname "$0")/.."
 echo "Found boot image: $BOOT_IMG"
 
 # Patch the boot image using KernelSU
