@@ -1,7 +1,10 @@
 #!/bin/bash
 
+cd "$(dirname "$0")/.."
+
 # Flashing images using fastboot
 echo "Flashing images using fastboot..."
+
 
 fastboot flash gpt PGPT
 fastboot flash preloader preloader.img
