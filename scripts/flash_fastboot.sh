@@ -20,7 +20,7 @@ else
 fi
 
 # Create a temporary directory for extraction
-TEMP_DIR="$(dirname "$0")/extracted"
+TEMP_DIR="$PARENT_DIR/extracted"
 mkdir -p "$TEMP_DIR"
 
 # Extract OTA ZIP using payload-dumper-go

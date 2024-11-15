@@ -2,14 +2,40 @@
 
 # Set the path for KernelSU binary and magiskboot
 ksud="./bin/ksud"
-magiskboot="./bin/magiskboot"
+magiskboot="./bin/magiskboot.so"
 
-cd "(dirname "$0")/.."
-echo "Found boot image: $BOOT_IMG"
+PARENT_DIR="$(dirname "$0")/.."
+
+# Find image files and display them with numbers
+count=0
+declare -A images
+for img in "$PARENT_DIR"/*.img; do
+    if [[ -f "$img" ]]; then
+        ((count++))
+        echo "$count: $img"
+        images[$count]="$img"
+    fi
+done
+
+if [[ $count -eq 0 ]]; then
+    echo "No image files found in the parent directory."
+    exit 1
+fi
+
+# Select boot image to flash
+while true; do
+    read -p "Enter the number of the boot image to use: " boot_choice
+    boot_image="${images[$boot_choice]}"
+    if [[ -n "$boot_image" ]]; then
+        break
+    else
+        echo "Invalid choice. Please try again."
+    fi
+done
 
 # Patch the boot image using KernelSU
 echo "Patching the boot image using KernelSU..."
-$ksud boot-patch -b "$BOOT_IMG" --magiskboot "$magiskboot" --kmi android12-5.10
+$ksud boot-patch -b "$boot_image" --magiskboot "$magiskboot" --kmi android12-5.10
 
 if [[ $? -ne 0 ]]; then
     echo "Failed to patch boot image."
@@ -17,7 +43,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # Check for the patched image file in the specified directory
-PATCHED_IMG=$(find "$BOOT_IMG_DIR" -type f -name "kernelsu_patched_*.img" | head -n 1)
+PATCHED_IMG=$(find "$PARENT_DIR" -type f -name "kernelsu_patched_*.img" | head -n 1)
 
 if [[ -z "$PATCHED_IMG" ]]; then
     echo "Patched image not found."

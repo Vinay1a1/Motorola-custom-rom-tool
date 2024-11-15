@@ -1,9 +1,11 @@
 #!/bin/bash
 
+PARENT_DIR="$(dirname "$0")/.."
+
 # Find image files and display them with numbers
 count=0
 declare -A images
-for img in ../*.img; do
+for img in "$PARENT_DIR"/*.img; do
     if [[ -f "$img" ]]; then
         ((count++))
         echo "$count: $img"

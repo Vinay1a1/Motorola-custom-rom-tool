@@ -4,6 +4,6 @@ echo Press Yes if you also want to flash it
 
 cd "$(dirname "$0")/../bin"
 
-./boot_patch.sh
+sh boot_patch.sh
 
 
