@@ -24,8 +24,7 @@ if [[ $? -eq 0 ]]; then
     echo "Rebooting to Fastboot..."
     adb reboot fastboot
 else
-    echo "Device not connected. Please connect a device and try again."
-    exit 1
+    echo "Device in fastboot mode"
 fi
 
 echo "Rebooting into fastbootd mode..."

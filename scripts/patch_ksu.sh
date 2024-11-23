@@ -55,17 +55,36 @@ echo "Patched boot image found: $PATCHED_IMG"
 # Ask user if they want to flash the patched image
 read -p "Do you want to flash the patched boot image? (y/n): " FLASH_CONFIRM
 if [[ "$FLASH_CONFIRM" =~ ^[Yy]$ ]]; then
-    echo "Flashing the patched boot image using fastboot..."
-    fastboot flash boot "$PATCHED_IMG"
-
-    if [[ $? -ne 0 ]]; then
-        echo "Failed to flash patched boot image."
-        exit 1
-    fi
-
-    echo "Patched boot image flashed successfully."
-else
-    echo "Flashing canceled."
+	if adb get-state &> /dev/null; then
+    		echo "Rebooting to Fastboot..."
+    		adb reboot fastboot
+	else
+    		echo "Device not in ADB mode. Proceeding with fastboot mode..."
+	fi
 fi
 
+# Reboot into fastbootd mode
+echo "Rebooting into fastbootd mode..."
+fastboot reboot fastboot
+
+echo "Flashing the patched boot image using fastboot..."
+fastboot flash boot "$PATCHED_IMG"
+
 echo "Process complete."
+
+# Prompt for reboot to system
+read -p "Flashing complete. Do you want to reboot the device to system now? (Y/N): " REBOOT
+if [[ "$REBOOT" =~ ^[Yy]$ ]]; then
+    fastboot reboot
+    echo "Device is rebooting."
+else
+    # Ask if user wants to reboot to recovery
+    read -p "Do you want to reboot to recovery? (Y/N): " RECOVERY
+    if [[ "$RECOVERY" =~ ^[Yy]$ ]]; then
+        fastboot reboot bootloader
+        fastboot reboot recovery
+        echo "Rebooting to recovery."
+    else
+        echo "Okay"
+    fi
+fi

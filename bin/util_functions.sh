@@ -13,10 +13,10 @@ MAGISK_VER_CODE=28000
 # BOOTMODE=
 
 # The path to store temporary files that don't need to persist
-# TMPDIR=
+TMPDIR="$(dirname "$0")/../bin"
 
 # The non-volatile path where magisk executables are stored
-# MAGISKBIN=
+MAGISKBIN="$(dirname "$0")/../bin"
 
 ###################
 # Helper Functions

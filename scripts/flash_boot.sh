@@ -19,6 +19,17 @@ if [[ $count -eq 0 ]]; then
     exit 1
 fi
 
+# Prompt user to select an image file to flash
+while true; do
+    read -p "Select the boot image number to flash: " boot_choice
+    if [[ $boot_choice -gt 0 && $boot_choice -le $count ]]; then
+        boot_image="${image_files[$((boot_choice - 1))]}"
+        break
+    else
+        echo "Invalid choice. Please try again."
+    fi
+done
+
 # Check if device is in ADB mode; if so, reboot to fastboot
 if adb get-state &> /dev/null; then
     echo "Rebooting to Fastboot..."
@@ -31,17 +42,6 @@ fi
 echo "Rebooting into fastbootd mode..."
 fastboot reboot fastboot
 
-# Prompt user to select an image file to flash
-while true; do
-    read -p "Select the boot image number to flash: " boot_choice
-    if [[ $boot_choice -gt 0 && $boot_choice -le $count ]]; then
-        boot_image="${image_files[$((boot_choice - 1))]}"
-        break
-    else
-        echo "Invalid choice. Please try again."
-    fi
-done
-
 # Flash the selected boot image
 echo "Flashing selected boot image..."
 fastboot flash boot "$boot_image"
@@ -52,16 +52,16 @@ if [[ "$REBOOT" =~ ^[Yy]$ ]]; then
     fastboot reboot
     echo "Device is rebooting."
 else
-    echo "Please reboot the device manually when ready."
+    # Ask if user wants to reboot to recovery
+    read -p "Do you want to reboot to recovery? (Y/N): " RECOVERY
+    if [[ "$RECOVERY" =~ ^[Yy]$ ]]; then
+        fastboot reboot bootloader
+        fastboot reboot recovery
+        echo "Rebooting to recovery."
+    else
+        echo "Okay"
+    fi
 fi
 
-# Prompt for reboot to recovery
-read -p "Do you want to reboot to recovery? (Y/N): " RECOVERY
-if [[ "$RECOVERY" =~ ^[Yy]$ ]]; then
-    fastboot reboot bootloader
-    fastboot reboot recovery
-    echo "Rebooting to recovery."
-else
-    echo "You can reboot to recovery manually later."
-fi
+
 
