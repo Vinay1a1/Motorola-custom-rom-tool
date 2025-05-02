@@ -1,7 +1,5 @@
 @echo off
-setlocal enabledelayedexpansion
-
-set "FASTBOOT=%~dp0..\adb\fastboot.exe"  
+setlocal enabledelayedexpansion 
 
 REM Look for any ZIP file in the parent directory
 set "OTA_ZIP="
@@ -31,30 +29,30 @@ REM Flashing images using  fastboot
     echo Flashing images using  fastboot...
     cd "%TEMP_DIR%"
 
-     "%FASTBOOT%" flash boot boot.img
+     fastboot flash boot boot.img
  
-     "%FASTBOOT%" flash vbmeta vbmeta.img
+     fastboot flash vbmeta vbmeta.img
 
-     "%FASTBOOT%" flash vbmeta_system vbmeta_system.img
+     fastboot flash vbmeta_system vbmeta_system.img
 
-     "%FASTBOOT%" flash vendor_boot vendor_boot.img
+     fastboot flash vendor_boot vendor_boot.img
 
-     "%FASTBOOT%" reboot  fastboot
+     fastboot reboot  fastboot
 
-     "%FASTBOOT%" flash product product.img
+     fastboot flash product product.img
 
-     "%FASTBOOT%" flash system system.img
+     fastboot flash system system.img
 
-     "%FASTBOOT%" flash system_ext system_ext.img
+     fastboot flash system_ext system_ext.img
 
-     "%FASTBOOT%" flash vendor vendor.img
+     fastboot flash vendor vendor.img
 
-     "%FASTBOOT%" flash vendor_dlkm vendor_dlkm.img
+     fastboot flash vendor_dlkm vendor_dlkm.img
 
 set /p FORMAT_DATA="Do you want to format data? (Y/N): "
 if /i "%FORMAT_DATA%"=="Y" (
     echo Formatting data...
-    "%FASTBOOT%" -w
+    fastboot -w
 ) else (
     echo Skipping data format. Proceeding with flashing...
 )
