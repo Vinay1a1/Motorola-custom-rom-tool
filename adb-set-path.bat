@@ -1,3 +1,6 @@
+@echo off
+@setlocal enabledelayedexpansion
+
 echo This will set platform tools to path so that can call it from anywhere. 
 
 echo Checking for admin privileges.
@@ -20,14 +23,15 @@ powershell -Command "Expand-Archive platform-tools.zip '%~dp0'"
 
 echo Creating a folder named platform tools in %USERPROFILE%
 
-mkdir "%USERPROFILE\platform-tools"
+mkdir "%USERPROFILE%\platform-tools"
 
 echo copying files
-xcopy platform-tools "%USERPROFILE\platform-tools"
+robocopy "%~dp0platform-tools" "%USERPROFILE%\platform-tools" /E
+
 
 echo setting it to path
 
-setx PATH "%USERPROFILE\platform-tools";%PATH%" /M
+setx /M path "%path%;%USERPROFILE%\platform-tools"
 
 echo Done. Now open run.bat
 
