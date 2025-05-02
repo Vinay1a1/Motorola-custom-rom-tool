@@ -1,6 +1,8 @@
 ## flashing-AIO
 
-Run the adb-path-set.bat first as admin to set the platform tools to path. After that use run.bat. You only need to run adb-set-path once.
+#Run the adb-set-path.bat first as admin to set the platform tools to path. After that use run.bat. You only need to run adb-set-path once.
+
+
 It's made for Moto G54. So, use it for other devices at your own risk.
 
 This script can-
