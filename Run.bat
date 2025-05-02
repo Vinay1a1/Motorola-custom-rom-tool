@@ -1,8 +1,6 @@
 @echo off
 @SETLOCAL enabledelayedexpansion
 
-set "FASTBOOT=%~dp0..\adb\fastboot.exe"
-set "ADB=%~dp0..\adb\adb.exe"
 set "Payload-dumper-go=%~dp0..\bin\payload-dumper-go.exe"
 
 echo.
