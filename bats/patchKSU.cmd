@@ -53,7 +53,7 @@ REM Ask user if they want to flash the patched image
 set /p FLASH_CONFIRM="Do you want to flash the patched boot image? (y/n): "
 if /i "%FLASH_CONFIRM%"=="y" (
     echo "Flashing the patched boot image using fastboot..."
-    "%~dp0..\adb\fastboot.exe" flash boot "%PATCHED_IMG%"
+    fastboot flash boot "%PATCHED_IMG%"
 
     if %errorlevel% neq 0 (
         echo "Failed to flash patched boot image."
