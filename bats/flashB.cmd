@@ -1,8 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set "FASTBOOT=%~dp0..\adb\fastboot.exe"  
-
 set count=0
 for %%f in ("%~dp0..\*.img") do (
     set /a count+=1
@@ -19,14 +17,14 @@ if %count%==0 (
 adb get -state 1>nul 2>nul
 if %errorlevel% equ 0 (
     echo Rebooting to Fastboot...
-    "%ADB%" reboot fastboot 
+    adb reboot fastboot 
 ) else (
 GOTO do
 )
 
 :do
 echo Rebooting into fastbootd mode...
-"%FASTBOOT%" reboot fastboot
+fastboot reboot fastboot
 
 :select_boot
 set /p boot_choice="Select the boot image to flash: "
@@ -37,11 +35,11 @@ if not defined image[%boot_choice%] (
 set boot_image=!image[%boot_choice%]!
 
 echo Flashing selected boot image...
-"%FASTBOOT%" flash boot %boot_image%
+fastboot flash boot %boot_image%
 
 set /p REBOOT="Flashing complete. Do you want to reboot the device to system now? (Y/N): "
 if /i "%REBOOT%"=="Y" (
-    "%FASTBOOT%" reboot
+    fastboot reboot
     echo Device is rebooting.
 ) else (
     echo Please reboot the device manually when ready.
@@ -50,8 +48,8 @@ if /i "%REBOOT%"=="Y" (
 
 set /p RECOVERY="Do you want to reboot to recovery? (Y/N): "
 if /i "%RECOVERY%"=="Y" (
-    "%FASTBOOT%" reboot bootloader
-    "%FASTBOOT%" reboot recovery
+    fastboot reboot bootloader
+    fastboot reboot recovery
     echo Rebooting to recovery.
 ) else (
     echo You can reboot to recovery manually later.
