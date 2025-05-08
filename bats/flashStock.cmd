@@ -26,25 +26,10 @@ REM Flashing images using  fastboot
    fastboot flash efuseBackup efuse.img
    fastboot flash boot_a boot.img
    fastboot flash vendor_boot_a vendor_boot.img
-   fastboot flash super super.img_sparsechunk.0
-   fastboot flash super super.img_sparsechunk.1
-   fastboot flash super super.img_sparsechunk.2
-   fastboot flash super super.img_sparsechunk.3
-   fastboot flash super super.img_sparsechunk.4
-   fastboot flash super super.img_sparsechunk.5
-   fastboot flash super super.img_sparsechunk.6
-   fastboot flash super super.img_sparsechunk.7
-   fastboot flash super super.img_sparsechunk.8
-   fastboot flash super super.img_sparsechunk.9
-   fastboot flash super super.img_sparsechunk.10
-   fastboot flash super super.img_sparsechunk.11
-   fastboot flash super super.img_sparsechunk.12
-   fastboot flash super super.img_sparsechunk.13
-   fastboot flash super super.img_sparsechunk.14
-   fastboot flash super super.img_sparsechunk.15
-   fastboot flash super super.img_sparsechunk.16
-   fastboot flash super super.img_sparsechunk.17
-   fastboot flash super super.img_sparsechunk.18
+
+   for /l %%i in (0,1,18) do (
+    fastboot flash super super.img_sparsechunk.%%i
+)
    fastboot erase debug_token
 
 set /p FORMAT_DATA="Do you want to format data? (Y/N): "
