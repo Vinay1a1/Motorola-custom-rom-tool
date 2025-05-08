@@ -5,15 +5,8 @@ echo This will set platform tools to path so that can call it from anywhere.
 
 echo Checking for admin privileges.
 
-net session
-If %ERRORLEVEL% neq 0 (
-powershell -Command "Start-Process '%~f0' -Verb RunAs"
-exit /b
-pause)
-goto continue
-
 echo Running as admin
-
+cd '%~dp0'
 :continue
 echo Wait. Downloading platform tools.
 

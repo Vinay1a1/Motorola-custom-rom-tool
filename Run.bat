@@ -20,6 +20,11 @@ echo =================================================
 echo            Flashing AIO By V
 echo =================================================
 
+rem Add ADB to PATH section?
+echo == Platform tools section ==
+echo [0] Download and add ADB to PATH
+
+
 rem Flash Custom ROM Section
 echo == Flash Custom ROM ==
 echo [1] Adb sideload    [2] Fastboot
@@ -71,8 +76,7 @@ goto :startMenu
     echo i.e. You will be able to run adb from anywhere
     echo Press any key to continue
     pause > nul
-
-    call "%~dp0bats/adb-set-path.cmd"
+    powershell -Command "Start-Process '%~f0' -Verb RunAs"
 
     echo.
     echo Press any key to return to the Main menu.
