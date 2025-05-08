@@ -7,15 +7,16 @@ echo Checking for admin privileges.
 
 net session
 If %ERRORLEVEL% neq 0 (
-echo Run this script as an administrator 
+powershell -Command "Start-Process '%~f0' -Verb RunAs"
+exit /b
 pause)
 goto continue
 
 echo Running as admin
 
+:continue
 echo Wait. Downloading platform tools.
 
-:continue
 curl -o platform-tools.zip https://dl.google.com/android/repository/platform-tools-latest-windows.zip
 echo Unzipping
 

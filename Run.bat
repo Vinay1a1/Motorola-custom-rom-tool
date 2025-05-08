@@ -49,7 +49,7 @@ echo.
 
     set selection=
     set /p selection= Please enter the option number(1-10):
-
+        if /i "%selection%"=="0" cls && call :adb-set-path
         if /i "%selection%"=="1" cls && call :flashADB
         if /i "%selection%"=="2" cls && call :flashFastboot
         if /i "%selection%"=="3" cls && call :extractVendorBoot
@@ -64,6 +64,20 @@ echo.
 goto :startMenu
 ::
 ::
+
+
+:adb-set-path
+    echo This will download and add them to your to your PATH variable
+    echo i.e. You will be able to run adb from anywhere
+    echo Press any key to continue
+    pause > nul
+
+    call "%~dp0bats/adb-set-path.cmd"
+
+    echo.
+    echo Press any key to return to the Main menu.
+    pause > nul
+exit /b 0
 
 :flashADB
 
