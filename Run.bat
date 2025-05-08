@@ -23,7 +23,7 @@ echo =================================================
 rem Add ADB to PATH section?
 echo == Platform tools section ==
 echo [0] Download and add ADB to PATH
-
+echo -----------------------------------------------
 
 rem Flash Custom ROM Section
 echo == Flash Custom ROM ==
@@ -76,7 +76,7 @@ goto :startMenu
     echo i.e. You will be able to run adb from anywhere
     echo Press any key to continue
     pause > nul
-    powershell -Command "Start-Process '%~f0' -Verb RunAs"
+    powershell -Command "Start-Process '%~dp0bats\adb-set-path.cmd' -Verb RunAs"
 
     echo.
     echo Press any key to return to the Main menu.
