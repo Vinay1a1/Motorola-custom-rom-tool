@@ -11,6 +11,7 @@ echo                          Made by V
 echo.
 
 :startMenu
+color e2
 
 @echo off
 cls
@@ -49,6 +50,27 @@ echo -----------------------------------------------
 echo == Miscellaneous ==
 echo [10] Exit
 
+rem Reboot Menu
+echo -----------------------------------------------
+echo == Reboot Menu ==
+echo [r] Reboot Options
+
+rem Get Device Information
+echo -----------------------------------------------
+echo == Get Device Information ==
+echo [i] Get Device Informations
+
+rem Change Slot
+echo -----------------------------------------------
+echo == Change Slot ==
+echo [s] Change Boot Slot 
+
+rem Erase Data
+echo -----------------------------------------------
+echo == Erase Data ==
+echo [e] Erase Data 
+
+
 echo =================================================
 echo.
 
@@ -65,6 +87,12 @@ echo.
         if /i "%selection%"=="8" cls && call :flashB
         if /i "%selection%"=="9" cls && call :flashStock
         if /i "%selection%"=="10" cls && call :exit
+
+        if /i "%selection%"=="r" cls && call :rebootmenu
+        if /i "%selection%"=="i" cls && call :getdeviceinfo
+        if /i "%selection%"=="s" cls && call :changeslot
+        if /i "%selection%"=="e" cls && call :erasedata
+        
     cls
 goto :startMenu
 ::
@@ -205,3 +233,44 @@ exit /b 0
 
 :exit
 exit
+
+
+
+
+:rebootmenu
+    echo Please Select Reboot Option
+    pause > nul
+    call  "%~dp0bats/rebootmenu.cmd"
+    echo.
+    echo Press any key to return to the Main menu.
+    pause > nul
+exit /b 0  
+
+:getdeviceinfo
+    echo Press any key to continue and get device Information
+    pause > nul
+    call  "%~dp0bats/getdeviceinfo.cmd"
+    echo.
+    echo Press any key to return to the Main menu.
+    pause > nul
+exit /b 0  
+
+:changeslot
+    echo You can change device's boot slot using this menu. 
+    echo Press any key to continue.
+    pause > nul
+    call  "%~dp0bats/changeslot.cmd"
+    echo.
+    echo Press any key to return to the Main menu.
+    pause > nul
+exit /b 0  
+
+:erasedata
+    echo You are about to erase data in the phone.
+    echo Press any key to continue.
+    pause > nul
+    call  "%~dp0bats/erasedata.cmd"
+    echo.
+    echo Press any key to return to the Main menu.
+    pause > nul
+exit /b 0  
