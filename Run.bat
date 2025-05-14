@@ -53,7 +53,7 @@ echo =================================================
 echo.
 
     set selection=
-    set /p selection= Please enter the option number(0-10):
+    set /p selection= Please enter the option number(0-11):
         if /i "%selection%"=="0" cls && call :adb-set-path
         if /i "%selection%"=="1" cls && call :flashADB
         if /i "%selection%"=="2" cls && call :flashFastboot
@@ -64,7 +64,8 @@ echo.
         if /i "%selection%"=="7" cls && call :flashVB
         if /i "%selection%"=="8" cls && call :flashB
         if /i "%selection%"=="9" cls && call :flashStock
-        if /i "%selection%"=="10" cls && call :exit
+        if /i "%selection%"=="10" cls && call :flashInactive
+        if /i "%selection%"=="11" cls && call :exit
     cls
 goto :startMenu
 ::
