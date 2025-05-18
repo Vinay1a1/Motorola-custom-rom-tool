@@ -207,7 +207,9 @@ exit /b 0
 
 :flashInactive
    echo This script will flash firmware in your inactive slot. Make sure that you are using the right firmware.
-   echo Press any key to continue 
+   echo Press any key to continue
+   pause > nul
+exit /b 0   
 
     call "%~dp0bats/flashInactive.cmd
 :exit
