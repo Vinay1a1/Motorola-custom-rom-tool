@@ -3,7 +3,8 @@ setlocal enabledelayedexpansion
 
 echo It will flash the firmware in both the slots
 echo Make sure you are using the right files
-echo 
+echo You can't blame me for your mistakes. 
+echo
 
 echo Flashing GPT
 fastboot flash gpt PGPT 
@@ -58,13 +59,6 @@ fastboot flash dpm_b dpm.img
 
 fastboot flash gz_a gz.img
 fastboot flash gz_b gz.img
-
-fastboot flash vcp_a vcp.img
-fastboot flash vcp_b vcp.img
-
-fastboot flash gz_a gz.img
-fastboot flash gz_b gz.img
-fastboot flash gz gz.img
 
 fastboot flash vcp_a vcp.img
 fastboot flash vcp_b vcp.img
