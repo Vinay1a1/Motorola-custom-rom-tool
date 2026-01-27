@@ -5,7 +5,7 @@ def run_adb_command(command):
     """Run an ADB command and return the output."""
     try:
         result = subprocess.run(command, shell=True, text=True, capture_output=True, check=True)
-        return result.stdout.strip()
+        return (result.stdout + result.stderr).strip()
     except subprocess.CalledProcessError as e:
         print(f"Error running adb command: {e.stderr}")
         return None

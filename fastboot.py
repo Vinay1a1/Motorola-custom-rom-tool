@@ -1,6 +1,7 @@
 import subprocess
 import time
 import adb
+import gui_helper
 
 def run_fastboot_command(command):
     """Run a Fastboot command and return the output."""
@@ -8,7 +9,7 @@ def run_fastboot_command(command):
         result = subprocess.run(command, shell=True, text=True, capture_output=True, check=True)
         return (result.stdout + result.stderr).strip()
     except subprocess.CalledProcessError as e:
-        return f"Error: {e.stderr if e.stderr else e.stdout}"
+        return f"Error: {e.stderr}"
 
     
 def get_devices():
@@ -26,19 +27,30 @@ def flash_boot(image_path):
 def reboot_fastboot():
     return run_fastboot_command("fastboot reboot fastboot")
 
-def flash_custom_rom(initialzip_path, rom_path):
-    print("Rebooting in fastbootD mode")
-    run_fastboot_command("fastboot reboot fastboot")
+
+
+def flash_custom_rom(result, initialzip_path, rom_path):
+    output = "Step 1/4: Rebooting into FastbootD"
+    gui_helper.console_update(result, output)
+
+    fastbootd = run_fastboot_command("fastboot reboot fastboot")
+    gui_helper.console_update(result, fastbootd)
     time.sleep(5)
 
-    print("Installing initial zip")
-    run_fastboot_command(f'fastboot --skip-reboot update "{initialzip_path}"')
+    output = ("Step 2/4: Installing initial zip")
+    gui_helper.console_update(result, output)
+    initialZipInstall = run_fastboot_command(f'fastboot --skip-reboot update "{initialzip_path}"')
+    gui_helper.console_update(result, initialZipInstall)
     time.sleep(5)
 
-    print("Rebooting into recovery mode")
-    run_fastboot_command("fastboot reboot recovery")
+    output = ("Step 3/4: Rebooting into recovery mode")
+    gui_helper.console_update(result, output)
+    reboot = run_fastboot_command("fastboot reboot recovery")
+    gui_helper.console_update(result, reboot)
     time.sleep(5)
 
-    print("Sideloading.....")
-    if adb.wait_for_device() == True:
-        run_fastboot_command(f'adb sideload "{rom_path}"')
+    output = ("Step 4/4: Sideloading......")
+    gui_helper.console_update(result, output)
+    if adb.wait_for_device():
+        sideload = run_fastboot_command(f'adb sideload "{rom_path}"')
+        gui_helper.console_update(result, sideload)

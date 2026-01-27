@@ -4,6 +4,7 @@ import time
 from tkinter import filedialog
 from tkinter import messagebox
 from pathlib import Path
+import threading
 
 
 
@@ -13,6 +14,12 @@ from pathlib import Path
 def update_adb_list(result):
     devices = adb.get_devices()
     console_update(result, devices)
+
+def reboot_blADB(result):
+    message = "Rebooting to bootloader"
+    console_update(result, message)
+    output = adb.reboot_bootloader()
+    console_update(result, output)
 
 
 # Fastboot
@@ -24,7 +31,8 @@ def update_fastboot_list(result):
 def reboot_blfastboot(result):
     message = "Rebooting to bootloader"
     console_update(result, message)
-    fastboot.reboot_bootloader()
+    output = fastboot.reboot_bootloader()
+    console_update(result, output)
 
 
 def flash_recovery(result):
@@ -56,7 +64,7 @@ def fastbootd(result):
     console_update(result, output)
 
 
-def flash_custom_rom(result):
+def flash_custom_rom(result, flashCustomRomBtn):
     console_update(result, "Flashing custom rom")
 
 
@@ -80,10 +88,16 @@ def flash_custom_rom(result):
 
         console_update(result, "Trying to flash custom rom")
 
-        output = fastboot.flash_custom_rom(initialzip_path, rom_path)
-        console_update(result, output)
+        thread = threading.Thread(target=fastboot.flash_custom_rom, args=(initialzip_path, rom_path))
+        flashCustomRomBtn.config(state= 'disabled')
+        thread.daemon = True
+        thread.start
+        
+        console_update(result, "Flashing running in background. Don't close this app")
+        
     else:
         console_update(result, "Aborted by user.")
+        flashCustomRomBtn.config(state= 'normal')
 
 
 def console_update(result, message):
