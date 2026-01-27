@@ -4,6 +4,7 @@ import fastboot
 from pathlib import Path
 from tkinter import ttk
 import gui_helper
+from tkinter import scrolledtext
 
 
 root = Tk()
@@ -11,10 +12,12 @@ root.title("G54_flashing_utility")
 
 # Mainframe and label setup
 mainframe = ttk.Frame(root) 
-result  = StringVar()
-result_label = ttk.Label(mainframe, textvariable=result)
-result.set("Waiting for scan.")
-result_label.grid(column=0, row=2, pady=10)
+# result  = StringVar()
+# result_label = ttk.Label(mainframe, textvariable=result)
+# result.set("Waiting for scan.")
+# result_label.grid(column=0, row=2, pady=10)
+result = scrolledtext.ScrolledText(mainframe, width=60, height=20, state='disabled', background="black", foreground="white", font=("Consolas", 10))
+result.grid(column=10, row=0, pady=20, padx=10)
 mainframe.grid(column=50, row=50, sticky=(N, W, E, S))
 
 # Groups
