@@ -1,47 +1,73 @@
 from tkinter import *
-from tkinter import ttk
 import gui_helper
-from tkinter import scrolledtext
+import customtkinter as ctk
 
-
-root = Tk()
+# Main window
+root = ctk.CTk()
 root.title("G54_flashing_utility")
+ctk.set_appearance_mode("System")
+root.geometry("800x600")
+root.columnconfigure(0, weight=1) 
+root.rowconfigure(0, weight=1) 
 
-# Mainframe and label setup
-mainframe = ttk.Frame(root)
+# Mainframe
+mainframe = ctk.CTkFrame(root)
+mainframe.grid(row=0, column = 0, sticky=(N, W, E, S))
 mainframe.columnconfigure(1, weight=1) 
-mainframe.rowconfigure(1, weight=1) 
-result = scrolledtext.ScrolledText(mainframe, width=60, height=20, state='disabled', background="black", foreground="white", font=("Consolas", 10))
-result.grid(column=2, row=0, rowspan=2, pady=5, padx=5, sticky="nsew")
-mainframe.grid( sticky=(N, W, E, S))
+mainframe.rowconfigure(1, weight=1)
+
+
+# Console "result setup"
+
+result = ctk.CTkTextbox(mainframe, width=60, height=20, font=("Consolas", 12))
+result.configure(state = 'disabled')
+result.grid(column=1, row=0, rowspan=2, pady=5, padx=5, sticky="nsew")
+
 
 # Groups
-adb_group = ttk.LabelFrame(mainframe, text=" ADB Commands ", padding=10)
-adb_group.grid(column=0, row=0, padx=5, pady=(5,0), sticky="new")
-fastboot_group = ttk.LabelFrame(mainframe, text = "Fastboot Commands", padding=10)
-fastboot_group.grid(column=0, row=1, padx=5, pady=(5,10), sticky="new")
+adb_group = ctk.CTkFrame(mainframe)
+adb_group.grid(column=0, row=0, padx=5, pady=20, sticky="new")
+adb_group.grid_columnconfigure(0, weight=1)
+ctk.CTkLabel(adb_group, text="ADB Commands", font=("Segoe UI", 13, "bold")).grid(row=0, column=0, pady=5)
+
+
+fastboot_group = ctk.CTkFrame(mainframe)
+fastboot_group.grid(column=0, row=1, padx=5, pady=20, sticky="new")
+fastboot_group.grid_columnconfigure(0, weight=1)
+ctk.CTkLabel(fastboot_group, text="Fastboot Commands", font=("Segoe UI", 13, "bold")).grid(row=0, column=0, pady=5)
+
 
 
 # Buttons
-adbDevices =ttk.Button(adb_group, text="List ADB devices", command=lambda: gui_helper.update_adb_list(result))
-rebootBootloaderAdb = ttk.Button(adb_group, text="Reboot to bootloader via ADB", command=lambda: gui_helper.reboot_blADB(result))
-fastbootDevices = ttk.Button(fastboot_group, text="List Fastboot devices", command=lambda: gui_helper.update_fastboot_list(result))
-rebootBootloaderFastboot = ttk.Button(fastboot_group, text="Reboot to bootloader via Fastboot", command=lambda: gui_helper.reboot_blfastboot(result))
-rebootFastbootD = ttk.Button(fastboot_group, text="Reboot to fastbootD", command= lambda: gui_helper.fastbootd(result))
-flashBoot = ttk.Button(fastboot_group, text="Flash boot image", command= lambda:gui_helper.flash_boot(result))
-flashRecovery = ttk.Button(fastboot_group, text="Flash vendor_boot(recovery) image", command= lambda:gui_helper.flash_recovery(result))
-flashCustomRomBtn = ttk.Button(fastboot_group, text="Flash custom rom zip", command= lambda:gui_helper.flash_custom_rom(result, flashCustomRomBtn))
+
+btn_w = 220 #Button width
+# ADB buttons
+adbDevices =ctk.CTkButton(adb_group, text="List ADB devices",width=btn_w, command=lambda: gui_helper.update_adb_list(result))
+rebootBootloaderAdb = ctk.CTkButton(adb_group, text="Reboot to bootloader via ADB",width=btn_w, command=lambda: gui_helper.reboot_blADB(result))
+
+# Fastboot buttons
+fastbootDevices = ctk.CTkButton(fastboot_group, text="List Fastboot devices",width=btn_w, command=lambda: gui_helper.update_fastboot_list(result))
+rebootBootloaderFastboot = ctk.CTkButton(fastboot_group, text="Reboot to bootloader via Fastboot",width=btn_w, command=lambda: gui_helper.reboot_blfastboot(result))
+rebootFastbootD = ctk.CTkButton(fastboot_group, text="Reboot to fastbootD",width=btn_w, command= lambda: gui_helper.fastbootd(result))
+flashBoot = ctk.CTkButton(fastboot_group, text="Flash boot image",width=btn_w, command= lambda:gui_helper.flash_boot(result))
+flashRecovery = ctk.CTkButton(fastboot_group, text="Flash vendor_boot(recovery) image",width=btn_w, command= lambda:gui_helper.flash_recovery(result))
+flashCustomRomBtn = ctk.CTkButton(fastboot_group, text="Flash custom rom zip",width=btn_w,fg_color="#d35400",hover_color="#e67e22", command= lambda:gui_helper.flash_custom_rom(result, flashCustomRomBtn))
 
 
 # Grids
-adbDevices.grid(column= 0, row=1, padx=5, pady= 5)
-fastbootDevices.grid(column=0, row= 0, padx=5, pady=5)
-rebootBootloaderAdb.grid(column= 0, row=0, padx=5, pady= 5)
-rebootBootloaderFastboot.grid(column=0,row=1,padx=5,pady=5)
-rebootFastbootD.grid(column=0, row=2, padx=5, pady=5)
-flashBoot.grid(column=0, row=3, padx=5, pady=5)
-flashRecovery.grid(column=0, row=4, padx=5, pady=5)
-flashCustomRomBtn.grid(column=0, row=5, padx=5, pady=5)
+
+# ADB button grid
+adbDevices.grid(column= 0, row=1, padx=10, pady= 5)
+rebootBootloaderAdb.grid(column= 0, row=2, padx=10, pady= 5)
+
+
+# Fastboot buttons grid
+fastbootDevices.grid(column=0, row= 1, padx=5, pady=5)
+rebootBootloaderFastboot.grid(column=0,row=2,padx=5,pady=5)
+rebootFastbootD.grid(column=0, row=3, padx=5, pady=5)
+flashBoot.grid(column=0, row=4, padx=5, pady=5)
+flashRecovery.grid(column=0, row=5, padx=5, pady=5)
+flashCustomRomBtn.grid(column=0, row=6, padx=5, pady=5)
 
 
 root.mainloop()

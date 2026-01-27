@@ -8,15 +8,12 @@ import threading
 
 
 
-
 # ADB
 def update_adb_list(result):
     devices = adb.get_devices()
     console_update(result, devices)
 
 def reboot_blADB(result):
-    message = "Rebooting to bootloader"
-    console_update(result, message)
     output = adb.reboot_bootloader()
     console_update(result, output)
 
@@ -118,12 +115,12 @@ def flash_custom_rom(result, flashCustomRomBtn):
 
 
 def console_update(result, message):
-    result.config(state = 'normal')
+    result.configure(state = 'normal')
 
     result.insert('end', f">{message}\n")
 
     result.see('end')
-    result.config(state = 'disabled')
+    result.configure(state = 'disabled')
     result.update_idletasks()
 
 
