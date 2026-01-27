@@ -6,10 +6,10 @@ def run_fastboot_command(command):
     """Run a Fastboot command and return the output."""
     try:
         result = subprocess.run(command, shell=True, text=True, capture_output=True, check=True)
-        return result.stdout.strip()
+        return (result.stdout + result.stderr).strip()
     except subprocess.CalledProcessError as e:
-        print(f"Error running adb command: {e.stderr}")
-        return None
+        return f"Error: {e.stderr if e.stderr else e.stdout}"
+
     
 def get_devices():
     return run_fastboot_command("fastboot devices")
