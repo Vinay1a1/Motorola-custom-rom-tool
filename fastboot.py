@@ -7,6 +7,7 @@ def run_fastboot_command(command):
     """Run a Fastboot command and return the output."""
     try:
         result = subprocess.run(command, shell=True, text=True, capture_output=True, check=True)
+        print((result.stdout + result.stderr).strip())
         return (result.stdout + result.stderr).strip()
     except subprocess.CalledProcessError as e:
         return f"Error: {e.stderr}"

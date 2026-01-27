@@ -8,16 +8,18 @@ root = Tk()
 root.title("G54_flashing_utility")
 
 # Mainframe and label setup
-mainframe = ttk.Frame(root) 
+mainframe = ttk.Frame(root)
+mainframe.columnconfigure(1, weight=1) 
+mainframe.rowconfigure(1, weight=1) 
 result = scrolledtext.ScrolledText(mainframe, width=60, height=20, state='disabled', background="black", foreground="white", font=("Consolas", 10))
-result.grid(column=10, row=0, pady=0, padx=0)
+result.grid(column=2, row=0, rowspan=2, pady=5, padx=5, sticky="nsew")
 mainframe.grid( sticky=(N, W, E, S))
 
 # Groups
 adb_group = ttk.LabelFrame(mainframe, text=" ADB Commands ", padding=10)
-adb_group.grid(column=0, row=0, padx=5, pady=5, sticky=(N, W, E))
+adb_group.grid(column=0, row=0, padx=5, pady=(5,0), sticky="new")
 fastboot_group = ttk.LabelFrame(mainframe, text = "Fastboot Commands", padding=10)
-fastboot_group.grid(column=0, row=1, padx=5, pady=5, sticky=(N, W, E))
+fastboot_group.grid(column=0, row=1, padx=5, pady=(5,10), sticky="new")
 
 
 # Buttons

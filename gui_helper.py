@@ -1,6 +1,5 @@
 import adb
 import fastboot
-import time
 from tkinter import filedialog
 from tkinter import messagebox
 from pathlib import Path
@@ -26,9 +25,12 @@ def reboot_blADB(result):
 def update_fastboot_list(result):
     devices = fastboot.get_devices()
     console_update(result, devices)
+    return devices.strip()
 
 
 def reboot_blfastboot(result):
+    if not check(result):
+        return
     message = "Rebooting to bootloader"
     console_update(result, message)
     output = fastboot.reboot_bootloader()
@@ -36,6 +38,8 @@ def reboot_blfastboot(result):
 
 
 def flash_recovery(result):
+    if not check(result):
+        return
     file_selected = filedialog.askopenfilename(title = "Select vendor_boot image", filetypes = [("Image files", "*.img"), ("All files", "*.*")])
     if file_selected:
         image_path = Path(file_selected)
@@ -48,6 +52,8 @@ def flash_recovery(result):
     
 
 def flash_boot(result):
+    if not check(result):
+        return
     file_selected = filedialog.askopenfilename(title = "Select boot image", filetypes = [("Image files", "*.img"), ("All files", "*.*")])
     if file_selected:
         image_path = Path(file_selected)
@@ -59,6 +65,8 @@ def flash_boot(result):
 
 
 def fastbootd(result):
+    if not check(result):
+        return
     console_update(result, "Rebooting into fastbootD mode.")
     output = fastboot.reboot_fastboot()
     console_update(result, output)
@@ -79,19 +87,28 @@ def flash_custom_rom(result, flashCustomRomBtn):
         console_update(result, "Operation cancelled.")
         return
     
+    initialzip_path = Path(initialzip)
+    rom_path = Path(rom)
+
+    if initialzip_path.suffix.lower() != '.zip' or rom_path.suffix.lower() != '.zip':
+        messagebox.showerror("Invalid File type", "Both selected files must be .zip files!")
+        console_update(result, "Error: Invalid file type selected.")
+        return
+    
+    if not check(result):
+        return
+    
     confirm = messagebox.askyesno("Final confirmation", "Are you sure you want to proceed?")
 
 
-    if confirm:
-        initialzip_path = Path(initialzip)
-        rom_path = Path(rom)
 
+    if confirm:
         console_update(result, "Trying to flash custom rom")
 
-        thread = threading.Thread(target=fastboot.flash_custom_rom, args=(initialzip_path, rom_path))
+        thread = threading.Thread(target=fastboot.flash_custom_rom, args=(result, initialzip_path, rom_path))
         flashCustomRomBtn.config(state= 'disabled')
         thread.daemon = True
-        thread.start
+        thread.start()
         
         console_update(result, "Flashing running in background. Don't close this app")
         
@@ -108,3 +125,11 @@ def console_update(result, message):
     result.see('end')
     result.config(state = 'disabled')
     result.update_idletasks()
+
+
+def check(result):
+    devices = update_fastboot_list(result)
+    if not devices:
+        console_update(result, "Something went wrong.")
+        return None
+    return True

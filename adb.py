@@ -7,8 +7,8 @@ def run_adb_command(command):
         result = subprocess.run(command, shell=True, text=True, capture_output=True, check=True)
         return (result.stdout + result.stderr).strip()
     except subprocess.CalledProcessError as e:
-        print(f"Error running adb command: {e.stderr}")
-        return None
+        print(e.stderr)
+        return e.stderr
     
 def get_devices():
     return run_adb_command("adb devices")
